@@ -14,40 +14,37 @@ require("globals_nonauth.php");
 $currentpage = $_SERVER['REQUEST_URI'];
 $cpage = strip_tags(stripslashes($currentpage));
 $domain = determine_game_urlbase();
-echo "<div class='jumbotron'>
-        <div class='container'>
-            <h1>
-                {$set['WebsiteName']}
-            </h1>
-            <p>
-                {$set['Website_Description']}</p>
-            <p>
-                <a class='btn btn-primary btn-lg' href='register.php' role='button'>
-                    Register &raquo;
-                </a>
-            </p>
-        </div>
-    </div>";
+?>
+<div class="row">
+    <div class="column">
+      <div class="ui message">
+        <h1 class="ui header"><?php echo $set['WebsiteName']; ?></h1>
+        <p><?php echo $set['Website_Description']; ?></p>
+        <a class="ui blue button" href="register.php">Register &raquo;</a>
+      </div>
+    </div>
+  </div>
+<?php
 $AnnouncementQuery = $db->query("SELECT `ann_text`,`ann_time` FROM `announcements` ORDER BY `ann_time` desc LIMIT 1");
 $ANN = $db->fetch_row($AnnouncementQuery);
-echo "
-<div class='row'>
-    <div class='col-sm-4'>
-        <div class='card'>
-            <div class='card-header'>
-                Latest Announcement
-            </div>
-            <div class='card-body'>
-                {$ANN['ann_text']}
-            </div>
-        </div>
-    </div>
-    <div class='col-sm-4'>
-        <div class='card'>
-            <div class='card-header'>
-                Top 10 Players
-            </div>
-            <div class='card-body'>";
+echo "<div class='ui link cards centered'>
+	<div class='ui card'>
+		<div class='content'>
+			<div class='header'>
+				Latest Announcement
+			</div>
+		</div>
+		<div class='content'>
+			{$ANN['ann_text']}
+		</div>
+	</div>
+	<div class='ui card'>
+		<div class='content'>
+			<div class='header'>
+				Top 10 Players
+			</div>
+		</div>
+		<div class='content'>";
 $Rank = 0;
 $RankPlayerQuery =
     $db->query("SELECT u.`userid`, `level`, `username`,
@@ -64,13 +61,14 @@ while ($pdata = $db->fetch_row($RankPlayerQuery)) {
     echo "{$Rank}) {$pdata['username']} [{$pdata['userid']}] (Level {$pdata['level']})<br />";
 }
 echo "</div>
-        </div>
-    </div>
-    <div class='col-sm-4'>
-        <div class='card'>
-            <div class='card-header'>
-                Top 10 Guilds
-            </div>";
+</div>
+<div class='ui card'>
+		<div class='content'>
+			<div class='header'>
+				Top 10 Guilds
+			</div>
+		</div>
+		<div class='content'>";
 $GRank = 0;
 $RankGuildQuery = $db->query("SELECT `guild_name`,`guild_level` FROM `guild` ORDER BY `guild_level` desc LIMIT 10");
 echo "
@@ -81,6 +79,5 @@ while ($gdata = $db->fetch_row($RankGuildQuery)) {
 }
 echo "</div>
         </div>
-    </div>
-</div>";
+    </div>";
 $h->endpage();

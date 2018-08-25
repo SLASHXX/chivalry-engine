@@ -22,13 +22,9 @@ class headers
                 <meta charset="utf-8">
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-                <meta name="description" content="<?php echo $set['Website_Description']; ?>">
-                <meta property="og:title" content="<?php echo $set['WebsiteName']; ?>"/>
-                <meta property="og:description" content="<?php echo $set['Website_Description']; ?>"/>
-                <meta property="og:image" content=""/>
+				<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.css">
+				<link rel="stylesheet" href="css/game.css">
                 <link rel="shortcut icon" href="" type="image/x-icon"/>
-                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-                <meta name="theme-color" content="#e7e7e7">
                 <meta name="author" content="<?php echo $set['WebsiteOwner']; ?>">
                 <?php echo "<title>{$set['WebsiteName']}</title>"; ?>
         </head>
@@ -42,6 +38,27 @@ class headers
     $ir['notifications'] = $db->fetch_single($db->query("SELECT COUNT(`notif_id`) FROM `notifications` WHERE `notif_user` = {$ir['userid']} AND `notif_status` = 'unread'"));
     ?>
         <body>
+		<!-- Following Menu -->
+			<div class="ui inverted menu fixed">
+			  <div class="ui container">
+				<a class="item" href="index.php"><?php echo $set['WebsiteName']; ?></a>
+				<a class="item" href="explore.php">Explore</a>
+				<div class="right menu">
+					<a class="item" href="inbox.php">Mail</a>
+					<a class="item" href="notifications.php">Notifications</a>
+					<a class="item" href="inventory.php">Inventory</a>
+				</div>
+			  </div>
+			</div>
+			<!-- Sidebar Menu -->
+<div class="ui vertical inverted sidebar menu">
+  <a class="active item">Home</a>
+  <a class="item">Work</a>
+  <a class="item">Company</a>
+  <a class="item">Careers</a>
+  <a class="item">Login</a>
+  <a class="item">Signup</a>
+</div>
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="index.php"><?php echo $set['WebsiteName']; ?></a>

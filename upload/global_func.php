@@ -1363,26 +1363,40 @@ function alert($type, $title, $text, $doredirect = true, $redirect = 'back', $re
 {
     //This function is a horrible mess dude..
     if ($type == 'danger')
+	{
+		$clr='red';
         $icon = "exclamation-triangle";
+	}
     elseif ($type == 'success')
+	{
+		$clr='green';
         $icon = "check-circle";
+	}
     elseif ($type == 'info')
+	{
+		$clr='blue';
         $icon = 'info-circle';
+	}
     else
+	{
+		$clr='yellow';
         $icon = 'exclamation-circle';
+	}
     if ($doredirect) {
         $redirect = ($redirect == 'back') ? $_SERVER['REQUEST_URI'] : $redirect;
-        echo "<div class='alert alert-{$type}'>
-				<i class='fa fa-{$icon}' aria-hidden='true'></i>
-					<strong>{$title}</strong> 
-						{$text} > <a href='{$redirect}' class='alert-link'>{$redirecttext}</a>
+        echo "<div class='ui {$clr} message'>
+				<div class='header'>
+					{$title}
+				</div>
+				<p>{$text} <br />> <a href='{$redirect}' class='alert-link'>{$redirecttext}</a></p>
 				</div>";
     } else {
-        echo "<div class='alert alert-{$type}'>
-                    <i class='fa fa-{$icon}' aria-hidden='true'></i>
-					    <strong>{$title}</strong>
-					        {$text}
-                </div>";
+        echo "<div class='ui {$clr} message'>
+				<div class='header'>
+					{$title}
+				</div>
+				<p>{$text}</p>
+				</div>";
     }
 }
 
