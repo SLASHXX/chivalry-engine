@@ -22,10 +22,9 @@ ob_start();
 			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 			<title>Chivalry Engine Installer</title>
 			<!-- CSS -->
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.css">
 			<meta name="theme-color" content="#e7e7e7">
 		</head>
 		<body>
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-12 text-center">
+			<div class="ui container">
+				<div class="column">

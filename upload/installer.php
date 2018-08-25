@@ -128,7 +128,7 @@ function diagnostics()
 	}
     echo "
     <h3>Basic Diagnostic Results:</h3>
-    <table class='table table-bordered table-hover'>
+    <table class='ui striped left aligned table'>
     		<tr>
     			<td>Is the server's PHP Version greater than 5.5.0?</td>
     			<td>{$pv}</td>
@@ -176,6 +176,7 @@ function diagnostics()
 		<hr />
    		";
     }
+	require_once('installer_foot.php');
 }
 
 function config()
@@ -183,15 +184,18 @@ function config()
     menuprint("input");
     echo "
     <h3>Configuration:</h3>
-    <form action='installer.php?code=install' method='post'>
-    <table class='table table-bordered table-hover'>
+    <form action='installer.php?code=install' method='post' class='ui form'>
+    <table class='ui striped left aligned table'>
+			<thead>
     		<tr>
     			<th colspan='2'>Database Config</th>
     		</tr>
+			</thead>
+			<tbody>
     		<tr>
     			<th>Database Driver</td>
     			<td>
-    				<select name='driver' class='form-control' type='dropdown'>
+    				<select name='driver'  type='dropdown'>
        ";
     if (function_exists('mysqli_connect'))
     {
@@ -218,53 +222,55 @@ function config()
     				Hostname<br />
     				<small>This is usually localhost</small>
     			</th>
-    			<td><input type='text' name='hostname' class='form-control' value='localhost' required='1' /></td>
+    			<td><input type='text' name='hostname'  value='localhost' required='1' /></td>
     		</tr>
     		<tr>
     			<th>
     				Username<br />
     				<small>The user must be able to use the database</small>
     			</th>
-    			<td><input type='text' name='username' class='form-control' required='1' /></td>
+    			<td><input type='text' name='username'  required='1' /></td>
     		</tr>
     		<tr>
     			<th>Password</th>
-    			<td><input type='password' name='password' class='form-control' required='1' value='' /></td>
+    			<td><input type='password' name='password'  required='1' value='' /></td>
     		</tr>
     		<tr>
     			<th>
     				Database Name<br />
     				<small>The database should not have any other software using it.</small>
     			</th>
-    			<td><input type='text' name='database' class='form-control' required='1' value='' /></td>
+    			<td><input type='text' name='database'  required='1' value='' /></td>
     		</tr>
+			<thead>
     		<tr>
     			<th colspan='2'>Game Config</th>
     		</tr>
+			</thead>
     		<tr>
     			<th>Game Name</th>
-    			<td><input type='text' name='game_name' class='form-control' required='1' /></td>
+    			<td><input type='text' name='game_name'  required='1' /></td>
     		</tr>
     		<tr>
     			<th>
     				Game Owner<br />
     				<small>This can be your nick, real name, or a company</small>
     			</th>
-    			<td><input type='text' name='game_owner' class='form-control' required='1' /></td>
+    			<td><input type='text' name='game_owner'  required='1' /></td>
     		</tr>
     		<tr>
     			<th>
     				Game Description<br />
     				<small>This is shown on the login page.</small>
     			</th>
-    			<td><textarea rows='6' cols='40' name='game_description' class='form-control' required='1'></textarea></td>
+    			<td><textarea rows='6' cols='40' name='game_description'  required='1'></textarea></td>
     		</tr>
     		<tr>
     			<th>
     				PayPal Address<br />
     				<small>This is where the payments for game DPs go.  Must be at least Premier.</small>
     			</th>
-    			<td><input type='email' name='paypal' class='form-control' required='1' /></td>
+    			<td><input type='email' name='paypal'  required='1' /></td>
     		</tr>
 			<tr>
     			<th>
@@ -272,59 +278,61 @@ function config()
     				<small>How much resources should you allocate towards generating a user's password?<br /> 
 					Benchmark your server <a href='password_benchmark.php'>here</a>.</small>
     			</th>
-    			<td><input type='number' class='form-control' value='10' required='1' min='5' max='15' name='password_effort'></td>
+    			<td><input type='number'  value='10' required='1' min='5' max='15' name='password_effort'></td>
     		</tr>
 			<tr>
     			<th>
     				Fraudguard IO Username<br />
     				<small><a href='https://fraudguard.io/'>https://fraudguard.io/</a></small>
     			</th>
-    			<td><input type='text' name='fgun' class='form-control' required='1' /></td>
+    			<td><input type='text' name='fgun'  required='1' /></td>
     		</tr>
 			<tr>
     			<th>
     				Fraudguard IO Password<br />
     				<small><a href='https://fraudguard.io/'>https://fraudguard.io/</a></small>
     			</th>
-    			<td><input type='password' name='fgpw' class='form-control' required='1' /></td>
+    			<td><input type='password' name='fgpw'  required='1' /></td>
     		</tr>
 			<tr>
     			<th>
     				ReCaptcha Public Key<br />
     				<small><a href='https://www.google.com/recaptcha/admin'>https://www.google.com/recaptcha/admin</a></small>
     			</th>
-    			<td><input type='text' name='recappub' class='form-control' required='1' /></td>
+    			<td><input type='text' name='recappub'  required='1' /></td>
     		</tr>
 			<tr>
     			<th>
     				ReCaptcha Private Key<br />
     				<small><a href='https://www.google.com/recaptcha/admin'>https://www.google.com/recaptcha/admin</a></small>
     			</th>
-    			<td><input type='password' name='recappriv' class='form-control' required='1' /></td>
+    			<td><input type='password' name='recappriv'  required='1' /></td>
     		</tr>
-    		<tr>
-    			<th colspan='2'>Admin User</th>
-    		</tr>
+				<thead>
+				<tr>
+					<th colspan='2'>Admin User</th>
+				</tr>
+				</thead>
     		<tr>
     			<th>Username</th>
-    			<td><input type='text' name='a_username' minlength='3' maxlength='20' class='form-control' required='1' /></td>
+    			<td><input type='text' name='a_username' minlength='3' maxlength='20'  required='1' /></td>
     		</tr>
     		<tr>
     			<th>Password</th>
-    			<td><input type='password' name='a_password' class='form-control' required='1' /></td>
+    			<td><input type='password' name='a_password'  required='1' /></td>
     		</tr>
     		<tr>
     			<th>Confirm Password</th>
-    			<td><input type='password' name='a_cpassword' class='form-control' required='1' /></td>
+    			<td><input type='password' name='a_cpassword'  required='1' /></td>
     		</tr>
     		<tr>
     			<th>Email Address</th>
-    			<td><input type='email' name='a_email' class='form-control' required='1' /></td>
+    			<td><input type='email' name='a_email'  required='1' /></td>
     		</tr>
     		<tr>
     			<th>Gender</th>
     			<td>
-    				<select name='gender' class='form-control' required='1' type='dropdown'>
+    				<select name='gender'  required='1' type='dropdown'>
     					<option value='Male'>Male</option>
     					<option value='Female'>Female</option>
     				</select>
@@ -333,7 +341,7 @@ function config()
 			<tr>
     			<th>Class</th>
     			<td>
-    				<select name='class' class='form-control' required='1' type='dropdown'>
+    				<select name='class'  required='1' type='dropdown'>
     					<option value='Warrior'>Warrior</option>
     					<option value='Rogue'>Rogue</option>
 						<option value='Defender'>Defender</option>
@@ -342,12 +350,14 @@ function config()
     		</tr>
     		<tr>
     			<td colspan='2' align='center'>
-    				<input type='submit' value='Install' class='btn btn-primary' />
+    				<input type='submit' value='Install' class='ui button' />
     			</td>
     		</tr>
+			</tbody>
     </table>
     </form>
        ";
+	   require_once('installer_foot.php');
 }
 function gpc_cleanup($text)
 {
@@ -627,10 +637,6 @@ EOF;
         }
     }
 	echo "<br />Crons have been set to start tomorrow at midnight.";
-}
-if ($_GET['code'] != 'install')
-{
-	require_once('installer_foot.php');
 }
 /* gets the contents of a file if it exists, otherwise grabs and caches */
 function get_cached_file($url,$file,$hours=1) 
