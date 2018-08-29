@@ -24,6 +24,7 @@ $domain = determine_game_urlbase();
       </div>
     </div>
   </div>
+  <br />
 <?php
 $AnnouncementQuery = $db->query("SELECT `ann_text`,`ann_time` FROM `announcements` ORDER BY `ann_time` desc LIMIT 1");
 $ANN = $db->fetch_row($AnnouncementQuery);

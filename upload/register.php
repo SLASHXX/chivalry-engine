@@ -6,7 +6,24 @@
 	Author:		TheMasterGeneral
 	Website: 	https://github.com/MasterGeneral156/chivalry-engine
 */
-require("globals_nonauth.php");
+$menuhide=1;
+require('globals_nonauth.php');
+?>
+  <style type="text/css">
+    body {
+      background-color: #DADADA;
+    }
+    body > .grid {
+      height: 100%;
+    }
+    .image {
+      margin-top: -100px;
+    }
+    .column {
+      max-width: 450px;
+    }
+  </style>
+  <?php
 $IP = $db->escape($_SERVER['REMOTE_ADDR']);
 //Check if someone is already registered on this IP.
 if ($db->fetch_single($db->query("SELECT COUNT(`userid`) FROM `users` WHERE `lastip` = '{$IP}' OR `loginip` = '{$IP}' OR `registerip` = '{$IP}'")) >= 1) {
@@ -15,7 +32,7 @@ if ($db->fetch_single($db->query("SELECT COUNT(`userid`) FROM `users` WHERE `las
 
 }
 if (!isset($_GET['REF'])) {
-    $_GET['REF'] = 0;
+    $_GET['REF'] = '';
 }
 $_GET['REF'] = abs($_GET['REF']);
 if ($_GET['REF']) {
@@ -180,101 +197,88 @@ if (!empty($username)) {
     }
     $h->endpage();
 } else {
-    echo "
-	<h3>{$set['WebsiteName']} Registration Form</h3>
-	<table class='table table-bordered'>
-		<form method='post'>
-			<tr>
-				<th>
-					Username
-				</th>
-				<td>
-                    <input type='text' class='form-control' id='username' name='username' minlength='3' maxlength='20' placeholder='3-20 characters in length' onkeyup='CheckUsername(this.value);' required>
-                    <div id='usernameresult' class='invalid-feedback'></div>
-				</td>
-			</tr>
-			<tr>
-				<th>
-					Email
-				</th>
-				<td>
-                    <input type='email' class='form-control' id='email' name='email' minlength='3' maxlength='256' placeholder='You will use this to sign in' onkeyup='CheckEmail(this.value);' required>
-                    <div id='emailresult' class='invalid-feedback'></div>
-				</td>
-			</tr>
-			<tr>
-				<th>
-					Password
-				</th>
-				<td>
-                    <input type='password' class='form-control' id='password' name='password' minlength='3' maxlength='256' placeholder='Unique passwords recommended' onkeyup='CheckPasswords(this.value);PasswordMatch();' required>
-					<div id='passwordresult'></div>
-				</td>
-				</tr>
-				<tr>
-					<th>
-						Confirm Password
-					</th>
-					<td>
-                        <input type='password' class='form-control' id='cpassword' name='cpassword' minlength='3' maxlength='256' placeholder='Confirm password entered previously' onkeyup='PasswordMatch();' required>
-					    <div id='cpasswordresult' class='invalid-feedback'></div>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						Sex
-					</th>
-					<td>
-						<select name='gender' class='form-control' type='dropdown'>
-							<option value='Male'>Male</option>
-							<option value='Female'>Female</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						Class
-					</th>
-					<td>
-						<select name='class' id='class' class='form-control' onchange='OutputTeam(this)' type='dropdown'>
-							<option></option>
-							<option value='Warrior'>Warrior</option>
-							<option value='Rogue'>Rogue</option>
-							<option value='Defender'>Defender</option>
-						</select>
-						<div id='teamresult' class='invalid-feedback'></div>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						Referral's ID
-					</th>
-					<td>
-						<input type='number' value='{$_GET['REF']}' class='form-control' id='ref' name='ref' min='0' placeholder='Can be empty. This is a User ID.'>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						Promo Code
-					</th>
-					<td>
-						<input type='text' class='form-control' id='promo' name='promo' placeholder='Can be empty'>
-					</td>
-				</tr>
-				<tr>
-					<td colspan='2'>
-						<i>By clicking Register, you accept you have read the <a href='gamerules2.php'>Game Rules</a>
+	?>
+	<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui teal image header">
+      <img src="img/logo.png" class="image">
+      <div class="content">
+        Sign up for account
+      </div>
+    </h2>
+    <form class="ui large form" method="post">
+      <div class="ui stacked segment">
+        <div class="field" id="usernamefield">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" name="username" id="username" placeholder="Username" onkeyup="CheckUsername(this.value);" required>
+          </div>
+		  <div id='usernameresult'></div>
+        </div>
+		<div class="field" id="emailfield">
+          <div class="ui left icon input">
+            <i class="envelope icon"></i>
+            <input type="email" name="email" id="email" placeholder="E-mail Address" onkeyup="CheckEmail(this.value);" required><br />
+          </div>
+		  <div id='emailresult'></div>
+        </div>
+        <div class="field" id="passwordfield">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="password" id="password" minxlength="3" maxlength="256" placeholder="Password" onkeyup="CheckPasswords(this.value);PasswordMatch();">
+          </div>
+		  <div id='passwordresult'></div>
+        </div>
+		<div class="field" id="cpasswordfield">
+          <div class="ui left icon input">
+            <i class="check icon"></i>
+            <input type="password" name="cpassword" id="cpassword" minxlength="3" maxlength="256" placeholder="Confirm Password" onkeyup="PasswordMatch();" required>
+          </div>
+		  <div id='cpasswordresult'></div>
+        </div>
+		<div class="field">
+          <div class="ui left icon input">
+            <select name='gender' class='ui fluid dropdown' type='dropdown'>
+				<option value='Male'>Male</option>
+				<option value='Female'>Female</option>
+			</select>
+          </div>
+        </div>
+		<div class="field">
+          <div class="ui left icon input">
+            <select name='class' id='class' class='ui fluid dropdown' onchange='OutputTeam(this)' type='dropdown'>
+				<option>Select your class</option>
+				<option value='Warrior'>Warrior</option>
+				<option value='Rogue'>Rogue</option>
+				<option value='Defender'>Defender</option>
+			</select>
+          </div>
+		  <div id='teamresult' class='invalid-feedback'></div>
+        </div>
+		<div class="field">
+          <div class="ui left icon input">
+            <i class="id card icon"></i>
+            <input type="number" min="0" name="ref" placeholder="Referral ID" title="The User ID of the player who referred you. Can be empty." value='<?php echo $_GET['REF']; ?>'>
+          </div>
+        </div>
+		<div class="field">
+          <div class="ui left icon input">
+            <i class="qrcode icon"></i>
+            <input type="text" name="ref" placeholder="Promo code. Can be empty." title="Promo Code">
+          </div>
+        </div>
+		<i>By clicking Register, you accept you have read the <a href='gamerules2.php'>Game Rules</a>
 						and our <a href='privacy.php'>Privacy Policy</a>. You also agree that you wish to opt-in to our
 						game newsletter. You may opt-out at anytime by checking your in-game settings.</i>
-					</td>
-				</tr>
-				<tr>
-					<td colspan='2'>
-						<input type='submit' class='btn btn-primary' value='Register' />
-					</td>
-				</tr>
-			</form>
-		</table>
-	&gt; <a href='login.php'>Login Page</a>";
+		<input type="submit" class="ui fluid large teal submit button" value="Register">
+      </div>
+    </form>
+
+    <div class="ui message">
+      Already have account? <a href="loginform.php">Log In</a>
+    </div>
+  </div>
+</div>
+<?php
 }
 $h->endpage();

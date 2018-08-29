@@ -26,23 +26,23 @@ if (isset($email)) {
     $e_email = $db->escape($email);
     $q = $db->query("SELECT COUNT(`userid`) FROM users WHERE `email` = '{$e_email}'");
     if (empty($email)) {
-        $newclass = 'form-control is-invalid';
+        $newclass = 'field error';
         $warning="Please specify a valid email.";
     }
     else if (!valid_email($email)) {
-        $newclass = 'form-control is-invalid';
+        $newclass = 'field error';
         $warning = "Please specify a valid email.";
     }
     else if ($db->fetch_single($q) != 0) {
-        $newclass = 'form-control is-invalid';
+        $newclass = 'field error';
         $warning = "The email address you've chosen is already in use.";
     } else {
-        $newclass = 'form-control is-valid';
+        $newclass = 'field';
         $warning='';
     }
     ?>
     <script>
-        var d = document.getElementById("email");
+        var d = document.getElementById("emailfield");
         var div = document.getElementById("emailresult");
         d.className = " <?php echo $newclass; ?>";
         div.innerHTML = " <?php echo $warning; ?>";

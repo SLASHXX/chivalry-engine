@@ -24,25 +24,25 @@ $username = isset($_POST['username']) ? stripslashes($_POST['username']) : '';
 $e_username = $db->escape($username);
 $q = $db->query("SELECT COUNT(`userid`) FROM users WHERE username = '{$e_username}'");
 if (empty($username)) {
-    $newclass = 'form-control is-invalid';
+    $newclass = 'field error';
     $warning = "Please enter a username.";
 
 } else if ((strlen($username) < 3)) {
-    $newclass = 'form-control is-invalid';
+    $newclass = 'field error';
     $warning = "Username must be, at least, 3 characters long.";
 } else if ((strlen($username) > 21)) {
-    $newclass = 'form-control is-invalid';
+    $newclass = 'field error';
     $warning = "Username must be, at most, 20 characters long.";
 } else if ($db->fetch_single($q)) {
-    $newclass = 'form-control is-invalid';
+    $newclass = 'field error';
     $warning = "Username already in use.";
 } else {
-    $newclass = 'form-control is-valid';
+    $newclass = 'field';
     $warning = "";
 }
 ?>
     <script>
-        var d = document.getElementById("username");
+        var d = document.getElementById("usernamefield");
         var div = document.getElementById("usernameresult");
         d.className = " <?php echo $newclass; ?>";
         div.innerHTML = " <?php echo $warning; ?>";

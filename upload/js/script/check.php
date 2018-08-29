@@ -67,38 +67,13 @@ if (!isset($_POST['password'])) { // If they are trying to view this without ?pa
             $pwscore = 2;
         $score = $lowscore + $upscore + $numbscore + $symscore + $pwscore;
         echo "<br />";
-        if ($score <= 3 || $score == 0) {
-            // If there total points are equal or less than 2.
-            $overall = "<div class='progress-bar progress-bar-danger' role='progressbar' aria-valuenow='{$score}'
-				aria-valuemin='0' aria-valuemax='10' style='width:{$score}0%'>
-				{$score}0% Strong</div>";
-            $newclass="is-valid";
-        } elseif ($score <= 5) {
-            // If there total points are equal or less than 5.
-            $overall = "<div class='progress-bar progress-bar-warning' role='progressbar' aria-valuenow='{$score}'
-				aria-valuemin='0' aria-valuemax='10' style='width:{$score}0%'>
-				{$score}0% Strong</div>";
-            $newclass="is-valid";
-        } elseif ($score <= 8) {
-            // If there total points are equal or less than 8.
-            $overall = "<div class='progress-bar progress-bar-info' role='progressbar' aria-valuenow='{$score}'
-				aria-valuemin='0' aria-valuemax='10' style='width:{$score}0%'>
-				{$score}0% Strong</div>";
-            $newclass="is-valid";
-        } elseif ($score >= 8) {
-            // If there total points are greator than 10.
-            $overall = "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='{$score}'
-				aria-valuemin='0' aria-valuemax='10' style='width:{$score}0%'>
-				{$score}0% Strong</div>";
-            $newclass="is-valid";
-        } // End If.
+		$overall="<div class='ui indicating progress' data-value='{$score}' data-total='10' data-percent='{$score}0'>
+			<div class='bar' style='transition-duration: 200ms; width: {$score}0%;'>
+				<div class='progress'>{$score}0% Strength</div>
+			</div>
+		</div>";
 
-        echo "<div class='progress'>{$overall}</div>"; // Tells them their passwords strength. ?>
-        <script>
-            var d = document.getElementById("password");
-            d.className += " <?php echo $newclass; ?>";
-        </script>
-        <?php
+        echo "<div class='progress'>{$overall}</div>"; // Tells them their passwords strength.
 
     } elseif ($PASS == NULL) { // ElseIf their password is NULL (empty).
         echo ''; // Dont display anything.
